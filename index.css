@@ -8,29 +8,43 @@ body {
     animation-iteration-count: infinite;
      }
 
-     canvas {
+canvas {
+/* ORIGINAL CODE */
+      /* 
       display: block;
       position: absolute;
-      top: 0;
-      left: 0;
       width: 50%;
       height: 50%;
+      margin-bottom: 20px; */
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+
   }
 
-  /* body {
-    margin: 0;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #FFA3CC, #007bff);
-}
+  #bg {
+    /* border: 1px solid white; */
+    animation-name: bgcolor;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    
 
-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+  }
+
+  .container {
     width: 100%;
-    height: 100%;
-} */
+  }
+
+  .container2 {
+display: flex;
+/* flex-direction: column; */
+width: 100%;
+  }
+
      
 main {
     position: absolute;
@@ -119,6 +133,9 @@ p {
 }
   .ease-in-text {
     animation: Slide_Up 1s ease;
+    /* border: 1px solid black; */
+    width: 100%;
+    
   
   }
     @keyframes Slide_Up{

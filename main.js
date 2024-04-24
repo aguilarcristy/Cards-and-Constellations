@@ -7,7 +7,8 @@ let scene, camera, renderer, mixer;
 function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffa3cc);
-    const light = new THREE.DirectionalLight(0xfffff, 3);
+    scene.background = null;
+    const light = new THREE.DirectionalLight(0xfffff, 5);
     light.position.set(1, 1, 5);
     scene.add(light);
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -16,7 +17,7 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    camera.position.z = 5;
+    camera.position.z = 3;
 }
 
 function animate() {
@@ -62,3 +63,7 @@ loader.load('NewHeart.gltf', function (gltf) {
         console.error('Animation clip not found.');
     }
 });
+
+// TO DO: 
+// CLOSE ORBIT CONTROLS. Make the model smaller. Fix its position below click me
+// STACK OVERFLOW - Resources 
