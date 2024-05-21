@@ -3,12 +3,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cards & Constellations</title>
-    <link rel= "stylesheet" href ="index.css">
+    <link rel= "stylesheet" href ="CSS/index.css">
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+          }
+        }
+    </script>
+    <script type="module" src="JS/cards.js"></script>
 </head>
 <body>
 <div class = "ease-in-text">
 <h1>*:･ﾟ✧*:･ﾟ✧ Welcome! *:･ﾟ✧*:･ﾟ✧</h1>
 <p>Take a look at your cards</p>
+
+<div class = "container">
+    <canvas id="bg">
+    <script type="module" src="JS/cards.js"></script>
+    </canvas>
+  </div>
+
+<!-- <div class = "card-container">
+    <img src="Scorpio.png">
+</div> -->
+
 <div class = "button-container">
 <a href="index.html" class="btn">Go Back</a>
 </div>

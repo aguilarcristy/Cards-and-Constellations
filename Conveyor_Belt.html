@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSS/index.css">
+  <title>Conveyor Belt with Three.js</title>
+  <style>
+    /* body { margin: 0; }
+    canvas { display: block; } */
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Create conveyor belt shape
+    const conveyorGeometry = new THREE.CylinderGeometry(5, 5, 30, 32);
+    const conveyorMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 });
+    const conveyorBelt = new THREE.Mesh(conveyorGeometry, conveyorMaterial);
+    scene.add(conveyorBelt);
+
+    // Position models along the conveyor belt
+    const numModels = 12;
+    const modelDistance = 12; // Adjust as needed
+    const modelGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const modelMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    for (let i = 0; i < numModels; i++) {
+      const model = new THREE.Mesh(modelGeometry, modelMaterial);
+      model.position.set(i * modelDistance - numModels * modelDistance / 2, 0, 0);
+      scene.add(model);
+    }
+
+    function loadModel() {
+    const loader = new GLTFLoader();
+    loader.load('Blender_File_Animated.gltf', function (gltf) {
+        const model = gltf.scene;
+        scene.add(model);
+
+        mixer = new THREE.AnimationMixer(model);
+        const clips = gltf.animations;
+        const animationActions = [];
+
+        const animationNamesToPlay = ['Curve.011Action', 'Star1Action', 'Star2Action', 'Star3Action', 'Star4Action','LeftVenusAction', 'MiddleVenusAction', 'MiddleVenusAction.004', 'RightVenusAction'];
+
+        clips.forEach(animation => {
+            if (animationNamesToPlay.includes(animation.name)) {
+                const action = mixer.clipAction(animation);
+                animationActions.push(action);
+                action.play();
+            }
+        });
+    }, undefined, function (error) {
+        console.error(error);
+    });
+}
+
+    camera.position.z = 30;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      conveyorBelt.rotation.y += 0.01;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
