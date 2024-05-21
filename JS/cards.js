@@ -26,12 +26,11 @@ function init() {
     light.position.set(1, 1, 5);
     scene.add(light);
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-    raycaster = new THREE.Raycaster();
     document.addEventListener('mousedown', onDocumentMouseDown, false);
+    // ORIGINAL CODE - Line 31
+    // renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#bg') });
+    renderer = new THREE.WebGLRenderer({ antialias: true });
 
-
-    renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#bg') });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
@@ -64,10 +63,10 @@ window.addEventListener('resize', onWindowResize, false);
 init();
 animate();
 
-document.body.onscroll = moveCamera; 
 
 const controls = new OrbitControls(camera, renderer.domElement);
 const loader = new GLTFLoader();
+
 // loader.load('Assets/Animated_Cards.glb', function (gltf) {
 //     cards = gltf.scene;
 //     scene.add(cards);
@@ -81,6 +80,7 @@ const loader = new GLTFLoader();
 //         console.error('Animation clip not found.');
 //     }
 // });
+
 document.body.appendChild( renderer.domElement );
 
 // CALLING SEPARATE CARDS WITHIN MODEL CODE?    
@@ -100,8 +100,8 @@ Capricorn = cards.getObjectByName('10Capricorn');
 Aquarius = cards.getObjectByName('11Aquarius');
 Pisces = cards.getObjectByName('12Pisces');
 Name = cards.getObjectByName('Name');
-
 scene.add(cards);
+raycaster = new THREE.Raycaster();
 
     mixer = new THREE.AnimationMixer(cards);
     const clips = gltf.animations;
@@ -118,41 +118,37 @@ scene.add(cards);
 
 function onDocumentMouseDown(event) {
     event.preventDefault();
-
     const mouse = new THREE.Vector2();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
     raycaster.setFromCamera(mouse, camera);
 
-    const intersects = raycaster.intersectObjects(scene.children, true);
+    const intersects = raycaster.intersectObjects(cards.children, true); // Use cards.children instead of scene.children
 
     if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
-        if (intersectedObject.parent === cards) {
-            const cardName = intersectedObject.name;
-            const link = getLinkForCard(cardName);
-            if (link) {
-                window.open(link, '_blank');
-            }
+        const cardName = intersectedObject.name;
+        const link = getLinkForCard(cardName);
+        if (link) {
+            window.open(link, '_blank');
         }
     }
 }
 
 function getLinkForCard(cardName) {
     const cardLinks = {
-        '1Aries': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '2Taurus': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '3Gemini': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '4Cancer': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '5Leo': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '6Virgo': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '7Libra': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '8Scorpio': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '9Sagittarius': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '10Capricorn': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '11Aquarius': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
-        '12Pisces': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits'
+        'Aries': 'https://www.allure.com/story/aries-zodiac-sign-personality-traits',
+        'Taurus': 'https://www.allure.com/story/taurus-zodiac-sign-personality-traits',
+        'Gemini': 'https://www.allure.com/story/gemini-zodiac-sign-personality-traits',
+        'Cancer': 'https://www.allure.com/story/cancer-zodiac-sign-personality-traits',
+        'Leo': 'https://www.allure.com/story/leo-zodiac-sign-personality-traits',
+        'Virgo': 'https://www.allure.com/story/virgo-zodiac-sign-personality-traits',
+        'Libra': 'https://www.allure.com/story/libra-zodiac-sign-personality-traits',
+        'Scorpio': 'https://www.allure.com/story/scorpio-zodiac-sign-personality-traits',
+        'Sagittarius': 'https://www.allure.com/story/sagittarius-zodiac-sign-personality-traits',
+        'Capricorn': 'https://www.allure.com/story/capricorn-zodiac-sign-personality-traits',
+        'Aquarius': 'https://www.allure.com/story/aquarius-zodiac-sign-personality-traits',
+        'Pisces': 'https://www.allure.com/story/pisces-zodiac-sign-personality-traits'
     };
 
     // Return the link for the given card name

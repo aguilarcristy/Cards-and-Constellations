@@ -85,15 +85,36 @@ p {
   text-align: left;
   padding-bottom: 15px;
   font-family: La Obrige;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #ffffff;
   margin: 40px 40px; 
 
 }
 
+.p-container {
+  width: 33.33%; /* 1/3 of the screen width */
+  text-align: left; /* Align text to the left */
+  float: left;
+  margin: 20px 20px;
+  position: relative;
+}
+.middle-container {
+  position: fixed;
+  bottom: 200px; 
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .button-container {
-  text-align: center; /* Centers the container horizontally */
-  margin-top: 20px; /* Adjust the margin as needed */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-gap: 10px; /* Adjust the gap between buttons */
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .btn {
@@ -105,9 +126,46 @@ p {
   padding: 10px 20px 10px 20px;
   text-decoration: none;
   align-items: center;
+  text-align: center;
+}
+
+.btn-2 {
+  background: #aa0e7e00;
+  border-radius: 25px;
+  font-family: La Obrige;
+  color: #ffffff;
+  font-size: 1.25rem;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  align-items: center;
+  text-align: center;
+}
+.middle-button-container {
+  position: fixed;
+  bottom: 10px; /* Adjust the distance from the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.middle-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .btn:hover {
+  background: #ffb7ea;
+  text-decoration: none;
+  color:#aa0e7e;
+}
+
+.btn-2:hover {
   background: #ffb7ea;
   text-decoration: none;
   color:#aa0e7e;
